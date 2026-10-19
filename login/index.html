@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="id">
+<head>
+<!--@head-->
+<title>Masuk | Riset Empiris</title>
+</head>
+<body class="bg-background text-foreground antialiased">
+  <div class="grid min-h-screen lg:grid-cols-[5fr_6fr]">
+    <!--@include auth-aside-->
+    <div class="flex min-h-screen flex-col">
+      <header class="flex items-center justify-between px-4 py-4 sm:px-8">
+        <span class="lg:hidden"><!--@include logo--></span><span class="hidden lg:block"></span>
+        <!--@include theme-toggle-->
+      </header>
+      <main id="main" class="flex flex-1 items-center justify-center px-4 pb-14 pt-4 sm:px-8">
+        <div class="w-full max-w-md animate-rise">
+          <h1 class="font-display text-4xl font-medium tracking-tight">Masuk</h1>
+          <p class="mt-2 text-[15px] text-muted-foreground-1">Lanjutkan penelitian Anda dari modul terakhir.</p>
+          <p id="notice" role="status" class="alert alert-error mt-5 hidden"></p>
+          <form id="form" method="post" class="mt-8 space-y-5" novalidate>
+            <div id="form-error" role="alert" class="alert alert-error hidden"></div>
+            <div>
+              <label for="email" class="label">Email</label>
+              <input id="email" name="email" type="email" autocomplete="username" required class="input">
+            </div>
+            <div>
+              <label for="password" class="label">Kata sandi</label>
+              <input id="password" name="password" type="password" autocomplete="current-password" required class="input">
+            </div>
+            <button id="submit" type="submit" class="btn btn-primary btn-lg w-full">Masuk</button>
+          </form>
+          <p class="mt-5 text-sm"><a href="/forgot-password/" class="link">Lupa kata sandi?</a></p>
+          <p class="mt-10 border-t border-line-2 pt-6 text-sm text-muted-foreground-1">Belum punya akun? <a href="/register/" class="link">Daftar</a></p>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/assets/js/pages/login.js"></script>
+</body>
+</html>

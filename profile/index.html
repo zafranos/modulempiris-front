@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+<!--@head-->
+<title>Profil | Riset Empiris</title>
+</head>
+<body class="bg-background text-foreground antialiased">
+  <!--@include app-bar-->
+  <main id="main" class="mx-auto w-full max-w-2xl px-4 pb-16 pt-10 sm:pt-14">
+    <div class="animate-rise">
+      <h1 class="font-display text-4xl font-medium tracking-tight">Profil</h1>
+      <p id="email" class="mt-2 text-[15px] text-muted-foreground-1"></p>
+      <form id="form" method="post" class="card card-pad mt-8 space-y-5" novalidate>
+        <div id="form-error" role="alert" class="alert alert-error hidden"></div>
+        <div>
+          <label for="name" class="label">Nama lengkap</label>
+          <input id="name" name="name" type="text" autocomplete="name" required class="input">
+        </div>
+        <div>
+          <label for="affiliation" class="label">Afiliasi atau institusi</label>
+          <input id="affiliation" name="affiliation" type="text" autocomplete="organization" required class="input">
+        </div>
+        <button id="submit" type="submit" class="btn btn-primary btn-lg w-full">Simpan perubahan</button>
+      </form>
+      <h2 class="mt-12 font-display text-2xl font-medium tracking-tight">Status pendaftaran</h2>
+      <ul id="enrollments" class="mt-4 space-y-3"></ul>
+      <p class="mt-8 flex flex-wrap gap-5 border-t border-line-2 pt-6 text-sm"><a href="/modul/?slug=beranda" class="link">Ke materi</a></p>
+    </div>
+  </main>
+  <script type="module" src="/assets/js/pages/profile.js"></script>
+</body>
+</html>

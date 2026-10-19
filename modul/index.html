@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+<head>
+<!--@head-->
+<title>Materi | Riset Empiris</title>
+</head>
+<body class="bg-background text-foreground antialiased">
+  <a href="#content" id="skip-link" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:rounded-lg focus:bg-layer focus:px-3 focus:py-2 focus:text-sm focus:shadow">Lewati ke isi</a>
+
+  <!-- Bilah atas -->
+  <header id="topbar" class="sticky top-0 z-40 border-b border-navbar-line bg-navbar/85 backdrop-blur-md lg:ps-72">
+    <div class="flex h-14 items-center gap-2 px-4">
+      <button type="button" id="sidebar-toggle" class="icon-btn lg:hidden" aria-expanded="false" aria-controls="sidebar" aria-label="Daftar modul"><!--@icon menu | size-4--></button>
+      <div class="min-w-0 sm:flex-1">
+        <p id="materi-name" class="hidden truncate text-sm font-semibold sm:block">Track riset empiris</p>
+      </div>
+      <div id="akses-badge" class="ms-auto whitespace-nowrap [&>span]:whitespace-nowrap sm:ms-0"></div>
+      <a id="admin-link" href="/admin/dashboard/" class="btn btn-ghost btn-sm hidden">Admin</a>
+      <a id="user-link" href="/profile/" class="hidden max-w-40 truncate rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-muted-hover sm:inline-block"></a>
+      <!--@include theme-toggle-->
+      <button type="button" data-logout class="btn btn-ghost btn-sm">Keluar</button>
+    </div>
+  </header>
+
+  <!-- Sidebar: tetap di layar lebar, laci geser di layar sempit (assets/js/drawer.js) -->
+  <div id="sidebar-backdrop" class="fixed inset-0 z-50 hidden bg-black/45 backdrop-blur-[2px] lg:hidden" aria-hidden="true" data-backdrop="1"></div>
+  <div id="sidebar"
+    class="invisible fixed inset-y-0 start-0 z-60 w-72 -translate-x-full border-e border-sidebar-line bg-sidebar drawer lg:visible lg:translate-x-0">
+    <div class="flex h-full max-h-full flex-col">
+      <div class="flex h-14 shrink-0 items-center justify-between gap-2 px-4">
+        <!--@include logo-->
+        <button type="button" id="sidebar-close" class="icon-btn size-8 rounded-full lg:hidden" aria-label="Tutup daftar modul"><!--@icon x | size-4--></button>
+      </div>
+      <p class="px-4 pb-2 text-sm font-medium text-muted-foreground-1 lg:hidden">Track riset empiris</p>
+      <div class="px-4 pb-4">
+        <div class="rounded-xl bg-primary-50 p-3.5 dark:bg-primary-950/60">
+          <div class="flex items-baseline justify-between text-xs">
+            <span class="font-semibold text-primary-900 dark:text-primary-100">Progres alur</span>
+            <span id="progress-text" aria-live="polite" class="text-muted-foreground-1"></span>
+          </div>
+          <progress id="progress-bar" value="0" max="1" aria-label="Progres alur" class="meter mt-2"></progress>
+        </div>
+      </div>
+      <nav id="nav" aria-label="Modul" class="min-h-0 flex-1 space-y-3 overflow-y-auto px-3 pb-4"></nav>
+      <div class="border-t border-sidebar-line p-3 sm:hidden">
+        <a href="/profile/" class="nav-item"><!--@icon user | mt-0.5 size-4--><span>Profil</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Isi -->
+  <main id="page-main" class="lg:ps-72">
+    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-12">
+      <div class="min-w-0">
+        <details class="mb-6 rounded-xl border border-line-2 bg-layer px-4 py-2.5 text-sm xl:hidden">
+          <summary class="cursor-pointer font-medium">Daftar isi halaman</summary>
+          <nav id="toc-nav-mobile" aria-label="Daftar isi halaman" class="mt-2 space-y-0.5"></nav>
+        </details>
+        <article id="content" tabindex="-1" class="mx-auto max-w-[46rem] focus:outline-none xl:mx-0">
+          <p class="text-sm text-muted-foreground-1">Memuat materi...</p>
+        </article>
+      </div>
+      <aside class="hidden xl:block">
+        <div class="sticky top-24">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground-1">Di halaman ini</p>
+          <nav id="toc-nav" aria-label="Daftar isi" class="max-h-[calc(100vh-9rem)] overflow-y-auto"></nav>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script type="module" src="/assets/js/pages/reader.js"></script>
+</body>
+</html>

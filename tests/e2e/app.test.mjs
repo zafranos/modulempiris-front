@@ -363,6 +363,34 @@ test("profil: ubah nama, tersimpan dan tampil di bilah atas", async () => {
   await context.close();
 });
 
+test("profil: ganti kata sandi, sesi tetap masuk dan sandi lama tak berlaku", async () => {
+  const u = await registerAPI("gantisandi");
+  const { context, page } = await authed({ email: u.email, password: PASSWORD });
+  await page.goto(WEB + "/profile/");
+  await page.locator("#pw-form").waitFor();
+  await until(async () => (await page.inputValue("#name")) !== "", "profil termuat");
+  assert.equal(await page.locator("#pw-current-row").isVisible(), true, "akun bersandi meminta sandi saat ini");
+
+  await page.fill("#current_password", "salah-sekali-123");
+  await page.fill("#new_password", "sandi-baru-e2e-123");
+  await page.fill("#new_password2", "sandi-baru-e2e-123");
+  await page.click("#pw-submit");
+  await until(() => page.locator("#pw-error").isVisible(), "galat sandi lama salah");
+  assert.match(await page.locator("#pw-error").textContent(), /lama salah/i);
+
+  await page.fill("#current_password", PASSWORD);
+  await page.click("#pw-submit");
+  await page.getByText("Kata sandi diganti.").waitFor();
+  assert.equal(await page.locator("#pw-submit").textContent(), "Ganti kata sandi");
+  // Token baru tersimpan: halaman yang butuh sesi tetap terbuka.
+  await page.goto(WEB + "/modul/?slug=beranda");
+  await page.locator("#content h1").waitFor();
+  assert.equal((await api("/login", { method: "POST", body: { email: u.email, password: PASSWORD } })).status, 401, "sandi lama tak berlaku");
+  assert.equal((await api("/login", { method: "POST", body: { email: u.email, password: "sandi-baru-e2e-123" } })).status, 200, "sandi baru berlaku");
+  noIssues();
+  await context.close();
+});
+
 test("halaman daftar pelatihan: akun tanpa pendaftaran dapat mendaftar dengan kode", async () => {
   const admin = await adminToken();
   const code = (await api("/admin/invite-codes", { method: "POST", token: admin, body: {} })).data.kode.code;

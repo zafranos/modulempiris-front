@@ -25,12 +25,43 @@ if (auth.requireLogin()) {
     setBusy(btn, false);
   });
 
+  const pwForm = document.getElementById("pw-form");
+  const pwErr = document.getElementById("pw-error");
+  const pwBtn = document.getElementById("pw-submit");
+  let punyaSandi = true;
+  pwForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showFormError(pwErr, "");
+    const current = pwForm.current_password.value, next = pwForm.new_password.value;
+    if (punyaSandi && !current) return showFormError(pwErr, "Isi kata sandi saat ini.");
+    if (next.length < 8 || next.length > 72) return showFormError(pwErr, "Kata sandi baru harus 8 sampai 72 karakter.");
+    if (next !== pwForm.new_password2.value) return showFormError(pwErr, "Kedua kata sandi baru tidak sama.");
+    setBusy(pwBtn, true, "Menyimpan...");
+    try {
+      const res = await api.post("/me/password", punyaSandi ? { current_password: current, new_password: next } : { new_password: next });
+      session.setSession(res.token, res.user);
+      pwForm.reset();
+      setPunyaSandi(true);
+      toast("Kata sandi diganti.");
+    } catch (err) {
+      showFormError(pwErr, err.message);
+    }
+    setBusy(pwBtn, false);
+  });
+  function setPunyaSandi(v) {
+    punyaSandi = v;
+    document.getElementById("pw-current-row").classList.toggle("hidden", !v);
+    document.getElementById("pw-intro").classList.toggle("hidden", v);
+    pwBtn.textContent = pwBtn.dataset.label = v ? "Ganti kata sandi" : "Pasang kata sandi"; // setBusy memulihkan dari data-label
+  }
+
   // Listener di atas dipasang sebelum await apa pun (lihat catatan di login.js); data dimuat setelahnya.
   try {
     const me = await auth.loadMe();
     document.getElementById("email").textContent = me.user.email;
     form.name.value = me.user.name || "";
     form.affiliation.value = me.user.affiliation || "";
+    setPunyaSandi((me.auth_methods || ["password"]).includes("password"));
     document.getElementById("enrollments").replaceChildren(
       ...(me.enrollments.length
         ? me.enrollments.map((e) =>

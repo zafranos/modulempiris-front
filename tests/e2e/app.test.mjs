@@ -208,7 +208,7 @@ test("prompt disalin persis dan tanpa sorotan isian", async () => {
   assert.equal(await card.locator("pre").evaluate((el) => el.textContent.replace(/\n$/, "")), clip, "salinan sama dengan teks prompt");
 
   // Tautan "/modul/<slug>" di naskah diarahkan ke pembaca.
-  const next = page.locator("#content a", { hasText: "Modul 2: Konteks Riset dan AGENTS.md" });
+  const next = page.locator("#panel-isi a", { hasText: "Modul 2: Konteks Riset dan AGENTS.md" });
   assert.equal(new URL(await next.getAttribute("href"), WEB).searchParams.get("slug"), "02-konteks-riset");
   noIssues();
   await context.close();
@@ -829,7 +829,7 @@ test("admin: landing disunting, disimpan, diurutkan, konflik ditolak, riwayat di
   assert.equal((await page.locator('#admin-menu a[aria-current="page"]').textContent()).trim(), "Landing");
   assert.equal(await page.locator("#admin-menu img.brand-mark").evaluate((i) => i.complete && i.naturalWidth > 0), true, "logo di panel admin (dibangun JS, awalan situs) termuat");
   assert.equal(await lf(page, "hero.title").inputValue(), "Dari data penelitian sampai naskah", "formulir memuat teks bawaan dari landing");
-  assert.match(await lf(page, "hero.lead").inputValue(), /^Sembilan modul/);
+  assert.match(await lf(page, "hero.lead").inputValue(), /^Agen AI di komputer Anda/);
   assert.equal(await page.locator('[role="group"][aria-label="Langkah 1"]').count(), 1, "daftar langkah alur dapat disunting sebagai grup");
   const save = page.getByRole("button", { name: "Simpan perubahan" });
   assert.equal(await save.isDisabled(), true, "tanpa perubahan tombol simpan nonaktif");
@@ -874,7 +874,7 @@ test("admin: landing disunting, disimpan, diurutkan, konflik ditolak, riwayat di
   const pub1 = await newPage();
   await pub1.page.goto(WEB + "/");
   await until(async () => /Judul uji e2e/.test(await landingH1(pub1.page).textContent()), "judul baru tampil");
-  assert.match((await landingH1(pub1.page).textContent()).replace(/\s+/g, " "), /^Judul uji e2e siap submit$/);
+  assert.match((await landingH1(pub1.page).textContent()).replace(/\s+/g, " "), /^Judul uji e2e siap diajukan$/);
   const faqs = await pub1.page.locator("#faq summary").allTextContents();
   assert.equal(faqs.length, 7);
   assert.equal(faqs[5].trim(), "Pertanyaan uji e2e?", "butir yang dinaikkan menempati urutan keenam");

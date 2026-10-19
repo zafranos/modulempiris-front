@@ -13,7 +13,7 @@ const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const slug = params.get("slug") || "beranda";
 
-const GROUPS = [["beranda", null], ["alur", "Alur penyusunan"], ["referensi", "Referensi"], ["lampiran", "Lampiran"]];
+const GROUPS = [["beranda", null], ["alur", "Alur kerja"], ["referensi", "Referensi"], ["lampiran", "Lampiran"]];
 const PROSE = "article"; // tipografi isi materi: lihat .article di input.css
 // Penanda di kiri butir hanya menyatakan STATUS (selesai, terkunci, aktif); jenisnya (ikon) hanya untuk non-alur.
 const GRUP_IKON = { beranda: "home", referensi: "book-open", lampiran: "file-text" };
@@ -144,7 +144,7 @@ function paintModul(modul) {
     downloadsBlock(modul),
     completeBlock(modul),
     pagerBlock(modul),
-    h("p", { class: "mt-12 border-t border-line-2 pt-5 text-xs text-muted-foreground-1", text: `Materi per ${formatDate(modul.content_version.tanggal)}. Sumber aturan: ${modul.content_version.sumber}.` }),
+    h("p", { class: "mt-12 border-t border-line-2 pt-5 text-xs text-muted-foreground-1", text: `Materi per ${formatDate(modul.content_version.tanggal)}. Materi: ${modul.content_version.sumber}.` }),
   );
   buildToc(panel, $("toc-nav"), $("toc-nav-mobile"));
   if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();

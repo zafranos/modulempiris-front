@@ -75,8 +75,8 @@ function render({ user: u, progres, ringkasan_progres: ringkasan }) {
       e.status === "approved" && e.approved_at ? h("p", { class: "text-sm text-muted-foreground-1", text: `Disetujui ${formatDate(e.approved_at)}.` }) : null,
       p.total > 0
         ? h("div", { class: "mt-3" },
-          h("div", { class: "flex items-baseline justify-between text-xs text-muted-foreground-1" }, h("span", { text: "Progres alur" }), h("span", { text: `${p.selesai} dari ${p.total} modul` })),
-          h("progress", { class: "meter mt-1", value: String(p.selesai), max: String(p.total), "aria-label": `Progres: ${p.selesai} dari ${p.total} modul` }))
+          h("div", { class: "flex items-baseline justify-between text-xs text-muted-foreground-1" }, h("span", { text: "Progres alur" }), h("span", { text: `${p.selesai} dari ${p.total} langkah` })),
+          h("progress", { class: "meter mt-1", value: String(p.selesai), max: String(p.total), "aria-label": `Progres: ${p.selesai} dari ${p.total} langkah` }))
         : null,
       h("div", { class: "mt-4" }, actionsFor(e, u.name, change)));
   };

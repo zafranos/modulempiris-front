@@ -81,7 +81,7 @@ function render(res) {
         badge(label, tone),
         res.total_alur > 0
           ? h("div", { class: "flex items-center gap-2" },
-            h("progress", { class: "meter w-28", value: String(x.selesai), max: String(res.total_alur), "aria-label": `Progres ${x.name}: ${x.selesai} dari ${res.total_alur} modul` }),
+            h("progress", { class: "meter w-28", value: String(x.selesai), max: String(res.total_alur), "aria-label": `Progres ${x.name}: ${x.selesai} dari ${res.total_alur} langkah` }),
             h("span", { class: "text-xs text-muted-foreground-1", text: `${x.selesai} / ${res.total_alur}` }))
           : "—",
         orDash(formatDateTime(x.terakhir)),
